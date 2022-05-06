@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExamController!{% endblock %}
+
+{% block body %}
+    <H1>LISTE DES ETUDIANT</H1>
+    <a href="{{ path('add_exam') }}">Ajouter un etudiant</a>
+<table class="table">
+    <tr class="alert alert-dark">
+        <td>Firstname</td>
+        <td>Name</td>
+        <td>Section</td>
+        <td>Action</td>
+    </tr>
+
+    {% for element in etudiant %}
+    {% if(element.getId()%5)==0 %}
+        <tr class="alert alert-success">
+           {% elseif (element.getId()%5)==1 %}
+           <tr class="alert alert-danger">
+             {% elseif (element.getId()%5)==2 %}
+          <tr class="alert alert- muted">
+            {% elseif (element.getId()%5)==3 %}
+           <tr class="alert alert-info">
+            {% elseif (element.getId()%5)==4 %}
+          <tr class="alert alert- warning">
+           {% endif %}
+
+        <td>{{ element.nom }}</td>
+        <td>{{ element.prenom }}</td>
+        <td>{% if element.section==null%}
+        Etudiant non encore effecte a une section
+        {% else %}
+            {{ element.section }}
+         {% endif%}
+        </td>
+        <td>
+            <a href="{{ path('edit_exam',{'id':element.getId()}) }}">edit</a>
+            <a href="{{ path('del_exam',{ 'id':element.getId() }) }}">delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
