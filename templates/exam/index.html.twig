@@ -1,21 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello ExamController!{% endblock %}
-
 {% block body %}
     <H1>LISTE DES ETUDIANT</H1>
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+    {% for msg in app.session.flashBag.get('error') %}
+        <div class="alert alert-danger">
+            {{ msg }}
+        </div>
+    {% endfor %}
     <a href="{{ path('add_exam') }}">Ajouter un etudiant</a>
-<table class="table">
-    <tr class="alert alert-dark">
-        <td>Firstname</td>
-        <td>Name</td>
+<table class="table" style="border: 3px black solid">
+    <tr class="alert alert-dark " style="border: 3px black solid">
+        <td >Firstname</td>
+        <td >Name</td>
         <td>Section</td>
         <td>Action</td>
     </tr>
 
     {% for element in etudiant %}
     {% if(element.getId()%5)==0 %}
-        <tr class="alert alert-success">
+        <tr class="alert alert-success" >
            {% elseif (element.getId()%5)==1 %}
            <tr class="alert alert-danger">
              {% elseif (element.getId()%5)==2 %}
@@ -41,4 +50,16 @@
     </tr>
     {% endfor %}
 </table>
+    <script>
+        document.querySelectorAll('table tr').forEach(e => e.addEventListener("click", function(e) {
+            var tr=e.target;
+            if(tr.parentNode.classList.contains("highlights"))
+            {
+                tr.parentNode.classList.remove("highlights")
+            }
+            else{
+                tr.parentNode.classList.add("highlights")
+            }
+            }));
+    </script>
 {% endblock %}

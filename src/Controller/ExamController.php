@@ -17,7 +17,7 @@ class ExamController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
         $repositery=$doctrine->getRepository(Etudiant::class);
-        $p= $repositery->findAll();
+        $p= $repositery->findBy([],['id'=>'DESC']);
         return $this->render('exam/index.html.twig',[
             'etudiant'=>$p
         ]);
@@ -79,5 +79,4 @@ class ExamController extends AbstractController
         return $this->redirectToRoute('acc_exam');
 
     }
-
 }

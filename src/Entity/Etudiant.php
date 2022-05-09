@@ -22,7 +22,6 @@ class Etudiant
     #[ORM\ManyToOne(targetEntity: Section::class, inversedBy: 'etudiant')]
     #[ORM\JoinColumn(nullable: true)]
     private $section;
-
     public function getId(): ?int
     {
         return $this->id;

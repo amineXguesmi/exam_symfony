@@ -16,6 +16,11 @@ class EtudiantFixtures extends Fixture
             $e = new \App\Entity\Etudiant();
             $e->setNom($faker->name);
             $e->setPrenom($faker->firstName);
+            $repo=$manager->getRepository(Section::class);
+            $rand=rand(1,100);
+            if($i%2==0){
+            $s=$repo->find($rand);
+            $e->setSection($s);}
             $manager->persist($e);
         }
         $manager->flush();
